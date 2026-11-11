@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spring’s Five Senses — Feeling</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200..900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <span class="nav__title">Spring’s Five Senses</span>
+    <span class="nav__sense">05 / Feeling</span>
+  </nav>
+
+  <!-- 1. QUESTION -->
+  <section class="slide slide--question" id="question">
+    <p class="kicker">Spring’s Five Senses: Feeling</p>
+    <h1 class="display">What Does Spring Feel Like?</h1>
+    <p class="hint">scroll ↓</p>
+  </section>
+
+  <!-- 2. TOUCH — frosted photo clears where the cursor moves -->
+  <section class="slide slide--touch" id="touch">
+    <h2 class="headline">Spring is something you feel before you see it.</h2>
+
+    <div class="frost" id="frost">
+      <div class="frost__img"></div>
+      <div class="frost__fog"></div>
+      <p class="frost__label">move your cursor to wipe the fog</p>
+    </div>
+
+    <div class="row">
+      <p class="body">The first day you leave the jacket at home. Sun warm on your neck while the air is still cool. Damp soil, soft new grass, petals that bruise when you touch them.</p>
+      <ul class="tags">
+        <li>warmth on skin</li>
+        <li>a cool breeze</li>
+        <li>damp soil</li>
+        <li>soft petals</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. MOOD — text loosens as you scroll -->
+  <section class="slide slide--mood" id="mood">
+    <div class="loosen-wrap">
+      <h2 class="headline loosen" id="loosen">Spring feels like finally letting go.</h2>
+    </div>
+
+    <div class="row">
+      <p class="body">Everything you held in all winter starts to loosen. Your body, your plans, your mood. A little restless, a little nervous, but lighter.</p>
+      <ul class="tags">
+        <li>relief</li>
+        <li>lightness</li>
+        <li>restlessness</li>
+        <li>a fresh start</li>
+      </ul>
+    </div>
+
+    <div class="heldin">
+      <span class="heldin__tight">HELD IN</span>
+      <span class="heldin__arrow">→</span>
+      <span class="heldin__loose">let go</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Spring’s Five Senses · Feeling · Mikah Kwon</p>
+  </footer>
+
+  <script>
+    // TOUCH: clear the fog where the cursor (or finger) is
+    const frost = document.getElementById('frost');
+    function wipe(x, y) {
+      const r = frost.getBoundingClientRect();
+      frost.style.setProperty('--x', (x - r.left) + 'px');
+      frost.style.setProperty('--y', (y - r.top) + 'px');
+      frost.classList.add('is-wiping');
+    }
+    frost.addEventListener('pointermove', e => wipe(e.clientX, e.clientY));
+    frost.addEventListener('pointerleave', () => frost.classList.remove('is-wiping'));
+
+    // MOOD: letters open up as the section scrolls into view
+    const loosen = document.getElementById('loosen');
+    function onScroll() {
+      const r = loosen.getBoundingClientRect();
+      const vh = window.innerHeight;
+      let p = (vh - r.top) / (vh * 0.75);
+      p = Math.min(Math.max(p, 0), 1);
+      loosen.style.setProperty('--p', p);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>
